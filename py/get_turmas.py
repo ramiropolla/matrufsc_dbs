@@ -22,7 +22,7 @@ jar = cookielib.CookieJar()
 opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(jar), urllib2.HTTPSHandler(debuglevel=0))
 
 print('- Acessando pagina de login')
-resp = opener.open('https://www.cagr.ufsc.br/modules/aluno')
+resp = opener.open('https://cagr.sistemas.ufsc.br/modules/aluno')
 soup = BeautifulSoup(resp)
 url_action = soup.form['action']
 login_form = {}
@@ -38,7 +38,7 @@ print('- Fazendo login')
 resp = opener.open('https://sistemas.ufsc.br' + url_action, urllib.urlencode(login_form))
 
 print('- Acessando Cadastro de Turmas')
-resp = opener.open('https://www.cagr.ufsc.br/modules/aluno/cadastroTurmas/')
+resp = opener.open('https://cagr.sistemas.ufsc.br/modules/aluno/cadastroTurmas/')
 soup = BeautifulSoup(resp)
 viewState = soup.find(id='javax.faces.ViewState')['value']
 
