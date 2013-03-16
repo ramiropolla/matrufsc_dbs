@@ -3,6 +3,8 @@
 # lxml is slower than cElementTree
 from xml.etree import cElementTree
 import unicodedata
+import datetime
+import os.path
 import codecs
 import json
 import sys
@@ -12,13 +14,19 @@ if len(sys.argv) < 3:
     print('usage: %s <input> <output>')
     sys.exit(1)
 
+newest_db = 0
+for i in range(1, len(sys.argv)-1):
+    stat = os.stat(sys.argv[i])
+    if stat.st_mtime > newest_db:
+        newest_db = stat.st_mtime
+
 outf = codecs.open(sys.argv[-1], 'w', encoding='utf-8')
 outf.write('{')
+outf.write('\"DATA\":' + datetime.datetime.fromtimestamp(newest_db).strftime('\"%d/%m/%y - %H:%M\"'))
 
 for i in range(1, len(sys.argv)-1):
 
-    if i != 1:
-        outf.write(',')
+    outf.write(',')
     outf.write('\"' + os.path.splitext(sys.argv[i])[0][-3:] + '\":[')
 
     inf = open(sys.argv[i], 'r')
