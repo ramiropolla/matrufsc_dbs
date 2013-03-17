@@ -2,9 +2,11 @@
 
 # lxml is slower than cElementTree
 from xml.etree import cElementTree
+from email.utils import parsedate
 import unicodedata
+import subprocess
+import calendar
 import datetime
-import os.path
 import codecs
 import json
 import sys
@@ -14,11 +16,15 @@ if len(sys.argv) < 3:
     print('usage: %s <input> <output>')
     sys.exit(1)
 
+os.environ['TZ'] = 'America/Sao_Paulo'
+
 newest_db = 0
 for i in range(1, len(sys.argv)-1):
-    stat = os.stat(sys.argv[i])
-    if stat.st_mtime > newest_db:
-        newest_db = stat.st_mtime
+    p = subprocess.Popen(["git", "log" , '--pretty=format:%cd', '-n', '1', '--date=rfc', sys.argv[i]], stdout=subprocess.PIPE)
+    out, err = p.communicate()
+    db_time = calendar.timegm(parsedate(out))
+    if  newest_db < db_time:
+        newest_db = db_time
 
 outf = codecs.open(sys.argv[-1], 'w', encoding='utf-8')
 outf.write('{')
