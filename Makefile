@@ -1,4 +1,4 @@
-DBs=20121.json 20122.json 20131.json
+DBs=20121.json 20122.json 20131.json 20132.json
 
 all: $(DBs) $(addsuffix .gz,$(DBs))
 

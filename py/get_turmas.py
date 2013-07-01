@@ -16,7 +16,7 @@ if len(sys.argv) < 3:
 try:
     semestre = sys.argv[3]
 except IndexError:
-    semestre = '20131'
+    semestre = '20132'
 
 jar = cookielib.CookieJar()
 opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(jar), urllib2.HTTPSHandler(debuglevel=0))
