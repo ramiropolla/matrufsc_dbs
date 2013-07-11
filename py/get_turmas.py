@@ -40,7 +40,7 @@ resp = opener.open('https://sistemas.ufsc.br' + url_action, urllib.urlencode(log
 print('- Acessando Cadastro de Turmas')
 resp = opener.open('https://cagr.sistemas.ufsc.br/modules/aluno/cadastroTurmas/')
 soup = BeautifulSoup(resp)
-viewState = soup.find(id='javax.faces.ViewState')['value']
+viewState = soup.find('input', {'name':'javax.faces.ViewState'})['value']
 
 print('- Pegando banco de dados')
 request = urllib2.Request('https://cagr.sistemas.ufsc.br/modules/aluno/cadastroTurmas/index.xhtml')
