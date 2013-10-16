@@ -21,6 +21,7 @@ except IndexError:
 jar = cookielib.CookieJar()
 opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(jar), urllib2.HTTPSHandler(debuglevel=0))
 
+print('Semestre: %s' % semestre)
 print('- Acessando pagina de login')
 resp = opener.open('https://cagr.sistemas.ufsc.br/modules/aluno')
 soup = BeautifulSoup(resp)
