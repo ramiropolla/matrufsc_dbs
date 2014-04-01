@@ -77,7 +77,10 @@ def find_id(xml, id):
                 return y
     return None
 def go_on(xml):
-    for x in find_id(xml, 'formBusca:dataScroller1_table')[0][0]:
+    scroller = find_id(xml, 'formBusca:dataScroller1_table')
+    if scroller is None:
+        return False
+    for x in scroller[0][0]:
         onclick = x.get('onclick')
         if onclick is not None and 'next' in onclick:
             return True
