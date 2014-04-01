@@ -83,8 +83,10 @@ def go_on(xml):
             return True
     return False
 
-campus_str = [ 'EaD', 'FLO', 'JOI', 'CBS', 'ARA', 'BLN' ]
-for campus in range(1, 6):
+campus_str = [ 'EaD', 'FLO', 'JOI', 'CBS', 'ARA' ]
+if semestre >= '20141':
+    campus_str.append('BLN')
+for campus in range(1, len(campus_str)):
     print('campus ' + campus_str[campus])
     outfile = open('db/' + semestre + '_' + campus_str[campus] + '.xml', 'w')
     page_form['formBusca:selectCampus'] = campus
