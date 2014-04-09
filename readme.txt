@@ -32,3 +32,7 @@ Os horários são no formato disponibilizado pela UFSC:
 
 Os professores são dispostos numa lista de strings.
 
+
+Para instalar os bancos de dados, basta copiar os arquivos, ou rodar:
+make DESTDIR="/<pasta_do_site>/matrufsc-<versao>" install
+
