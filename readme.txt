@@ -1,6 +1,6 @@
 Este repositório contém os bancos de dados extraídos do CAGR para serem
 utilizados no MatrUFSC, disponível no seguinte repositório:
-http://git.arrozcru.org/?p=matrufsc.git;a=summary
+https://github.com/ramiropolla/matrufsc_dbs.git
 
 O banco de dados é gerado usando os script py/get_turmas.py e
 py/parse_turmas.py. Estes scripts são específicos para o sistema de
