@@ -92,6 +92,7 @@ for i in range(1, len(sys.argv)-1):
             turma = [nome_turma, curso, horas_aula, vagas_ofertadas, vagas_ocupadas, alunos_especiais, saldo_vagas, pedidos_sem_vaga, horarios, professores]
             cur_materia[2].append(turma)
 
+cursos_all = []
 professores_all = []
 
 for i in range(1, len(sys.argv)-1):
@@ -99,10 +100,12 @@ for i in range(1, len(sys.argv)-1):
     for materia in materias:
         turmas = materia[2]
         for turma in turmas:
+            cursos_all.append(turma[1])
             professores = turma[9]
             for professor in professores:
                 professores_all.append(professor)
 
+cursos_all = list(set(cursos_all))
 professores_all = list(set(professores_all))
 
 for i in range(1, len(sys.argv)-1):
@@ -110,6 +113,7 @@ for i in range(1, len(sys.argv)-1):
     for materia in materias:
         turmas = materia[2]
         for turma in turmas:
+            turma[1] = cursos_all.index(turma[1])
             professores_new = []
             professores = turma[9]
             for professor in professores:
@@ -120,6 +124,7 @@ outf = codecs.open(sys.argv[-1], 'w', encoding='utf-8')
 outf.write('{')
 outf.write('\"DATA\":' + datetime.datetime.fromtimestamp(newest_db).strftime('\"%d/%m/%y - %H:%M\"') + '\n')
 outf.write(',\"PROFS\":' + json.dumps(professores_all, ensure_ascii=False, separators=(',',':')) + '\n')
+outf.write(',\"CURSOS\":' + json.dumps(cursos_all, ensure_ascii=False, separators=(',',':')) + '\n')
 
 for i in range(1, len(sys.argv)-1):
 
