@@ -26,14 +26,9 @@ for i in range(1, len(sys.argv)-1):
     if  newest_db < db_time:
         newest_db = db_time
 
-outf = codecs.open(sys.argv[-1], 'w', encoding='utf-8')
-outf.write('{')
-outf.write('\"DATA\":' + datetime.datetime.fromtimestamp(newest_db).strftime('\"%d/%m/%y - %H:%M\"'))
+materias_all = {}
 
 for i in range(1, len(sys.argv)-1):
-
-    outf.write(',')
-    outf.write('\"' + os.path.splitext(sys.argv[i])[0][-3:] + '\":[\n')
 
     inf = open(sys.argv[i], 'r')
     split = inf.read().split('<?xml version="1.0"?>')
@@ -42,6 +37,8 @@ for i in range(1, len(sys.argv)-1):
     prev_codigo = None
     cur_materia = None
     materias = []
+
+    materias_all[str(sys.argv[i])] = materias
 
     for xml in split:
         if len(xml) == 0:
@@ -95,6 +92,18 @@ for i in range(1, len(sys.argv)-1):
                 prev_codigo = codigo_disciplina
             turma = [nome_turma, horas_aula, vagas_ofertadas, vagas_ocupadas, alunos_especiais, saldo_vagas, pedidos_sem_vaga, horarios, professores]
             cur_materia[3].append(turma)
+
+
+outf = codecs.open(sys.argv[-1], 'w', encoding='utf-8')
+outf.write('{')
+outf.write('\"DATA\":' + datetime.datetime.fromtimestamp(newest_db).strftime('\"%d/%m/%y - %H:%M\"'))
+
+for i in range(1, len(sys.argv)-1):
+
+    outf.write(',')
+    outf.write('\"' + os.path.splitext(sys.argv[i])[0][-3:] + '\":[\n')
+
+    materias = materias_all[str(sys.argv[i])]
 
     for materia in materias:
         outf.write(json.dumps(materia, ensure_ascii=False, separators=(',',':')))
