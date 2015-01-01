@@ -83,22 +83,18 @@ for i in range(1, len(sys.argv)-1):
                     professores.append(sub.tail)
 
             if codigo_disciplina != prev_codigo:
-                try:    # nome_disciplina may be str or unicode
-                    nome_disciplina_ascii = unicodedata.normalize('NFKD', nome_disciplina).encode('ascii', 'ignore')
-                except TypeError:
-                    nome_disciplina_ascii = nome_disciplina
-                cur_materia = [codigo_disciplina, nome_disciplina_ascii.upper(), nome_disciplina, []]
+                cur_materia = [codigo_disciplina, nome_disciplina, []]
                 materias.append(cur_materia)
                 prev_codigo = codigo_disciplina
             turma = [nome_turma, horas_aula, vagas_ofertadas, vagas_ocupadas, alunos_especiais, saldo_vagas, pedidos_sem_vaga, horarios, professores]
-            cur_materia[3].append(turma)
+            cur_materia[2].append(turma)
 
 professores_all = []
 
 for i in range(1, len(sys.argv)-1):
     materias = materias_all[str(sys.argv[i])]
     for materia in materias:
-        turmas = materia[3]
+        turmas = materia[2]
         for turma in turmas:
             professores = turma[8]
             for professor in professores:
@@ -109,7 +105,7 @@ professores_all = list(set(professores_all))
 for i in range(1, len(sys.argv)-1):
     materias = materias_all[str(sys.argv[i])]
     for materia in materias:
-        turmas = materia[3]
+        turmas = materia[2]
         for turma in turmas:
             professores_new = []
             professores = turma[8]
