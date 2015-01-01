@@ -33,7 +33,7 @@ outf.write('\"DATA\":' + datetime.datetime.fromtimestamp(newest_db).strftime('\"
 for i in range(1, len(sys.argv)-1):
 
     outf.write(',')
-    outf.write('\"' + os.path.splitext(sys.argv[i])[0][-3:] + '\":[')
+    outf.write('\"' + os.path.splitext(sys.argv[i])[0][-3:] + '\":[\n')
 
     inf = open(sys.argv[i], 'r')
     split = inf.read().split('<?xml version="1.0"?>')
