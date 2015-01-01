@@ -50,6 +50,9 @@ for i in range(1, len(sys.argv)-1):
             nome_disciplina   = row[ 5].text # str split by <br />
             for sub in row[5]:
                 nome_disciplina = nome_disciplina + ' ' + sub.tail
+            nome_disciplina_split = nome_disciplina.split(' *')
+            curso = nome_disciplina_split[1]
+            nome_disciplina = nome_disciplina_split[0]
 
             horas_aula        = int(row[ 6].text) # int
             vagas_ofertadas   = int(row[ 7].text) # int
@@ -86,7 +89,7 @@ for i in range(1, len(sys.argv)-1):
                 cur_materia = [codigo_disciplina, nome_disciplina, []]
                 materias.append(cur_materia)
                 prev_codigo = codigo_disciplina
-            turma = [nome_turma, horas_aula, vagas_ofertadas, vagas_ocupadas, alunos_especiais, saldo_vagas, pedidos_sem_vaga, horarios, professores]
+            turma = [nome_turma, curso, horas_aula, vagas_ofertadas, vagas_ocupadas, alunos_especiais, saldo_vagas, pedidos_sem_vaga, horarios, professores]
             cur_materia[2].append(turma)
 
 professores_all = []
@@ -96,7 +99,7 @@ for i in range(1, len(sys.argv)-1):
     for materia in materias:
         turmas = materia[2]
         for turma in turmas:
-            professores = turma[8]
+            professores = turma[9]
             for professor in professores:
                 professores_all.append(professor)
 
@@ -108,10 +111,10 @@ for i in range(1, len(sys.argv)-1):
         turmas = materia[2]
         for turma in turmas:
             professores_new = []
-            professores = turma[8]
+            professores = turma[9]
             for professor in professores:
                 professores_new.append(professores_all.index(professor))
-            turma[8] = professores_new
+            turma[9] = professores_new
 
 outf = codecs.open(sys.argv[-1], 'w', encoding='utf-8')
 outf.write('{')
