@@ -92,6 +92,8 @@ for i in range(1, len(sys.argv)-1):
             turma = [nome_turma, curso, horas_aula, vagas_ofertadas, vagas_ocupadas, alunos_especiais, saldo_vagas, pedidos_sem_vaga, horarios, professores]
             cur_materia[2].append(turma)
 
+horas_all = [ "0730", "0820", "0910", "1010", "1100", "1330", "1420", "1510", "1620", "1710", "1830", "1920", "2020", "2110" ]
+
 salas_all = []
 cursos_all = []
 professores_all = []
@@ -130,9 +132,14 @@ for i in range(1, len(sys.argv)-1):
             for horario in horarios:
                 split = horario.split(' / ')
                 hora = split[0]
+
+                dia  = int(hora[0])
+                n    = int(hora[7])
+                hora = horas_all.index(hora[2:6])
+
                 sala = split[1]
                 sala = salas_all.index(sala)
-                horarios_new.append([hora,sala])
+                horarios_new.append([dia,hora,n,sala])
             turma[8] = horarios_new
 
             professores_new = []
