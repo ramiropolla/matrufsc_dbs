@@ -1,3 +1,9 @@
+====================================================================================================================================
+
+NOVO REPOSITÓRIO ATUALIZADO: https://github.com/aquillesf/Matrufsc_dbs_scrapper_2.0
+
+====================================================================================================================================
+
 Este repositório contém os bancos de dados extraídos do CAGR para serem
 utilizados no MatrUFSC, disponível no seguinte repositório:
 https://github.com/ramiropolla/matrufsc_dbs.git
